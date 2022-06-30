@@ -18,12 +18,12 @@ const schema = Joi.object({
 
 const handleRegister = async () => {
   try {
-    await schema.validate({
+    schema.validate({
       pseudo: pseudo.value,
       password: password.value,
       email: email.value,
     });
-    await axios.post("http://localhost:5000/user/register", {
+    await axios.post("http://localhost:5000/user", {
       pseudo: pseudo.value,
       email: email.value,
       password: password.value,
@@ -35,6 +35,7 @@ const handleRegister = async () => {
 </script>
 <template>
 <img src="../assets/welcome.png">
+<p v-if="error">{{ error.response.data.message[0].message }}</p>
 <form class="register" @submit.prevent="handleRegister">
     <h1>Join Us</h1>
     <input type="text" placeholder="Enter Nickname" v-model="pseudo">
