@@ -37,9 +37,9 @@ const handleRegister = async () => {
 <img src="../assets/welcome.png">
 <form class="register" @submit.prevent="handleRegister">
     <h1>Join Us</h1>
-    <input type="text" placeholder="Enter Nickname">
-    <input type="text" placeholder="Enter Email">
-    <input type="password" placeholder="Enter Password">
+    <input type="text" placeholder="Enter Nickname" v-model="pseudo">
+    <input type="text" placeholder="Enter Email" v-model="email">
+    <input type="password" placeholder="Enter Password" v-model="password">
     <button type="submit">Signup</button>
 </form>
 </template>

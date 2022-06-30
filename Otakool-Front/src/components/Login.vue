@@ -21,8 +21,8 @@ const handleSignIn = async () => {
 <img src="../assets/welcome.png">
 <form class="register" @submit.prevent="handleSignIn">
     <h1>Connexion</h1>
-    <input type="text" placeholder="Enter Email">
-    <input type="password" placeholder="Enter Password">
+    <input type="text" placeholder="Enter Email" v-model="email">
+    <input type="password" placeholder="Enter Password" v-model="password">
     <button>Login</button>
 </form>
 </template>
