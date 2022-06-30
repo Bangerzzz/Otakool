@@ -1,13 +1,47 @@
-<script></script>
+<script setup>
+import { ref } from "vue";
+import axios from "axios";
+import Joi from "joi";
+const email = ref("");
+const pseudo = ref("");
+const password = ref("");
+const error = ref(null);
+
+const schema = Joi.object({
+  pseudo: Joi.string().alphanum().min(3).max(30).required(),
+  password: Joi.string().min(3).required(),
+  email: Joi.string().email({
+    minDomainSegments: 2,
+    tlds: { allow: ["com", "net"] },
+  }),
+});
+
+const handleRegister = async () => {
+  try {
+    await schema.validate({
+      pseudo: pseudo.value,
+      password: password.value,
+      email: email.value,
+    });
+    await axios.post("http://localhost:5000/user/register", {
+      pseudo: pseudo.value,
+      email: email.value,
+      password: password.value,
+    });
+  } catch (err) {
+    error.value = err;
+  }
+};
+</script>
 <template>
 <img src="../assets/welcome.png">
-<div class="register">
+<form class="register" @submit.prevent="handleRegister">
     <h1>Join Us</h1>
     <input type="text" placeholder="Enter Nickname">
     <input type="text" placeholder="Enter Email">
     <input type="password" placeholder="Enter Password">
-    <button>Signup</button>
-</div>
+    <button type="submit">Signup</button>
+</form>
 </template>
 <style>
 img{
