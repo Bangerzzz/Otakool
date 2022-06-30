@@ -3,7 +3,7 @@ import Login from "./components/Login.vue";
 import Acceuil from "./components/Acceuil.vue";
 import Signup from './components/Signup.vue'
 import Profil from './components/Profil.vue'
-
+import SucessRegister from "./components/SucessRegister.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -27,8 +27,13 @@ const router = createRouter({
             path: "/profil",
             name: "profil",
             component: Profil
-        }
-    ]
-})
+        },
+        {
+            path: "/success",
+            name: "sucesss",
+            component: SucessRegister
+        },
+    ],
+});
 
 export default router; 

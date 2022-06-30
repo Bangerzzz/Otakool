@@ -2,11 +2,12 @@
 import { ref } from "vue";
 import axios from "axios";
 import Joi from "joi";
+import {  useRouter } from "vue-router";
 const email = ref("");
 const pseudo = ref("");
 const password = ref("");
 const error = ref(null);
-
+const  router = useRouter();
 const schema = Joi.object({
   pseudo: Joi.string().alphanum().min(3).max(30).required(),
   password: Joi.string().min(3).required(),
@@ -15,10 +16,9 @@ const schema = Joi.object({
     tlds: { allow: ["com", "net"] },
   }),
 });
-
 const handleRegister = async () => {
   try {
-    schema.validate({
+   schema.validate({
       pseudo: pseudo.value,
       password: password.value,
       email: email.value,
@@ -28,6 +28,7 @@ const handleRegister = async () => {
       email: email.value,
       password: password.value,
     });
+  router.push("/success");
   } catch (err) {
     error.value = err;
   }
