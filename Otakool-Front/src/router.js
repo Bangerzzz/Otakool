@@ -4,6 +4,7 @@ import Acceuil from "./components/Acceuil.vue";
 import Signup from './components/Signup.vue'
 import Profil from './components/Profil.vue'
 import SucessRegister from "./components/SucessRegister.vue";
+import AnimeDetail from "./components/AnimeDetail.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -32,6 +33,12 @@ const router = createRouter({
             path: "/success",
             name: "sucesss",
             component: SucessRegister
+        },
+        {
+            path: "/anime/:id",
+            name: "details",
+            component: AnimeDetail,
+            props:true
         },
     ],
 });

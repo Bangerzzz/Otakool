@@ -1,26 +1,44 @@
 <script setup>
+import axios from 'axios';
+import { onMounted, ref } from 'vue';
+
+let user = JSON.parse(localStorage.getItem('user'));
+const animeList = ref();
+//récupérer la liste des animes depuis la base de données
+async function fetchAnime (){
+    const res = await axios.get("https://otakool-back.herokuapp.com/anime");
+    animeList.value = res.data;
+}
+onMounted(()=> {
+    fetchAnime();
+})
+
 </script>
 
 <template>
         <div class="container">
-            <h1>Barre de recherche</h1>
-            <input type="text"> <button type="button" class="btn btn-primary">Recherche</button>
-            <hr>
-            <h1>Animes of the moment !</h1>
+            <br>
+            <button type="button" id="searchbtn" class="btn btn-primary">Recherche</button> <input class="search" type="text"> 
+            <br>
+            <h1>List of Animes</h1>
             <ul class="list-group list-group-horizontal">
-                <li class="list-group-item">Premier élément de liste
-                    <img src="https://img1.ak.crunchyroll.com/i/spire1/7c186f0cbe78d53cc327520b3b390a821649089667_main.jpg" class="img-fluid"> 
-                </li>
-                <li class="list-group-item">Deuxième élément de liste
-                     <img src="https://img1.ak.crunchyroll.com/i/spire1/7c186f0cbe78d53cc327520b3b390a821649089667_main.jpg" class="img-fluid">
-                </li>
-                <li class="list-group-item">Troisième élément de liste
-                     <img src="https://img1.ak.crunchyroll.com/i/spire1/7c186f0cbe78d53cc327520b3b390a821649089667_main.jpg" class="img-fluid">
+                
+                <li v-for="anime in animeList" class="list-group-item"><a :href="'/anime/'+anime.id">{{anime.title}}</a>
+                    <img :src="anime.imgMedium" class="img-fluid"> 
                 </li>
             </ul>
         </div>
 </template>
 
 <style>
-
+    .search{
+        float:right
+    }
+    #searchbtn{
+        float:right
+    }
+    .img-fuild{
+        width:220px;
+        height:300px;
+    }
 </style>

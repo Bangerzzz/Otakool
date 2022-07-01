@@ -9,13 +9,15 @@ const password = ref("");
 const error = ref(null);
 const  router = useRouter();
 const schema = Joi.object({
-  pseudo: Joi.string().alphanum().min(3).max(30).required(),
+  pseudo: Joi.string().min(3).max(30).required(),
   password: Joi.string().min(3).required(),
   email: Joi.string().email({
     minDomainSegments: 2,
     tlds: { allow: ["com", "net"] },
   }),
 });
+
+//inscription
 const handleRegister = async () => {
   try {
    schema.validate({
@@ -23,11 +25,13 @@ const handleRegister = async () => {
       password: password.value,
       email: email.value,
     });
-    await axios.post("http://localhost:5000/user", {
+    //add user to database
+    await axios.post("https://otakool-back.herokuapp.com/user", {
       pseudo: pseudo.value,
       email: email.value,
       password: password.value,
     });
+    //changer la route
   router.push("/success");
   } catch (err) {
     error.value = err;
@@ -35,7 +39,7 @@ const handleRegister = async () => {
 };
 </script>
 <template>
-<img src="../assets/welcome.png">
+<img class="hi" src="../assets/welcome.png">
 <p v-if="error">{{ error.response.data.message[0].message }}</p>
 <form class="register" @submit.prevent="handleRegister">
     <h1>Join Us</h1>
@@ -46,7 +50,7 @@ const handleRegister = async () => {
 </form>
 </template>
 <style>
-img{
+.hi{
     width:220px;
     height:300px;
     display: block;

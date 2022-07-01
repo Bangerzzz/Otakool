@@ -3,10 +3,12 @@ import axios from "axios";
 
 const user = ref(null);
 
+//récupérer l'user
 if (localStorage.getItem("user")) {
     user.value = (localStorage.getItem("user"));
 }
 
+//systeme de conenxion
 function connexion(userObj) {
     const userExist = localStorage.getItem("user");
     
@@ -28,12 +30,14 @@ function connexion(userObj) {
 
 }
 
+//deconnexion
 const deconnexion = () => {
     user.value = null;
     localStorage.removeItem("user");
     localStorage.removeItem("token");
 }
 
+//export du user et des fonctions de connexion deco
 export function useUserStore() {
     return {
         user,

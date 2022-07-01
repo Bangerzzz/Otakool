@@ -2,9 +2,11 @@
   import {ref} from "vue";
   import {useUserStore} from "@/services/userStore";
   const token = ref("");
+  //récupérer le token du localstorage
   if (localStorage.getItem("token")) {
     token.value = localStorage.getItem("token");
   }
+  //importer le user et la fonction de deconnexion
   const { user, deconnexion} = useUserStore();
 
   function logout() {
@@ -39,7 +41,7 @@
         </li>
 
          <li class="nav-item mx-2" v-if="user">
-          <RouterLink class="nav-link btn btn-danger" :to="{name:'acceuil'}" @click="logout()">Deconnexion</RouterLink>
+          <RouterLink class="nav-link btn btn-danger" to="/" @click="logout()">Deconnexion</RouterLink>
         </li>
 
       </ul>
